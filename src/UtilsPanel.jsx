@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import merge from 'deepmerge';
+import deepmerge from 'deepmerge';
 import Swatch from './Swatch';
 import ButtonGroup from './ButtonGroup';
 import Button from './Button';
@@ -35,7 +35,7 @@ export default class UtilsPanel extends Component {
     this.props.channel.on(KEY + '-set', (rawConfig) => {
       const config = getConfig(rawConfig);
       // console.log(this.getQueryParam(KEY), getStateFromConfig(config));
-      const state = merge(getStateFromConfig(config), this.getQueryParam(KEY));
+      const state = deepmerge(getStateFromConfig(config), this.getQueryParam(KEY), {arrayMerge: (d, s) => s});
       // console.log({state});
       this.setGlobalState({ config, ...state });
     });
