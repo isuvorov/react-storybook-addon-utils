@@ -1,5 +1,4 @@
 import React from 'react'; // tslint:disable-line
-import assign from 'object-assign';
 
 const style = {
   swatches: {
@@ -34,23 +33,23 @@ const style = {
 
 export default ({ root, name, value, onClick, active }) => (
   <div
-    style={assign({}, style.swatches, style.listStyle, style.hard)}
+    style={Object.assign({}, style.swatches, style.listStyle, style.hard)}
     onClick={() => onClick(value)}
   >
     <div
-      style={assign({}, style.swatch, {
+      style={Object.assign({}, style.swatch, {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         ...root,
       })}
     />
-    <div style={assign({}, style.listStyle, style.soft)}>
+    <div style={Object.assign({}, style.listStyle, style.soft)}>
       {name && (
-        <h4 style={assign({ float: 'left', fontWeight: 'bold' }, style.font)}>
+        <h4 style={Object.assign({ float: 'left', fontWeight: 'bold' }, style.font)}>
           {name}
         </h4>
       )}
-      <h4 style={assign({ float: 'right', fontWeight: 'normal' }, style.font)}>
+      <h4 style={Object.assign({ float: 'right', fontWeight: 'normal' }, style.font)}>
         {active ? 'ACTIVE' : ''}
       </h4>
     </div>

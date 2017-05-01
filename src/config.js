@@ -10,24 +10,11 @@ const centered = {
 }
 
 export default {
-  default2: {
-    root: {},
-    wrap: {},
-    content: {},
-  },
   default: {
     root: {
-      // background: 'url("https://pp.vk.me/c629529/v629529020/1dd4a/JjiHPoWVrMM.jpg") no-repeat center center fixed',
       ...fullscreen,
       backgroundSize: 'cover',
     },
-    wrap: {
-      // border: '1px green solid',
-      // padding: 20,
-    },
-    content: {
-      // border: '1px red dotted',
-    }
   },
   controls: [
     {
@@ -41,16 +28,16 @@ export default {
           }
         },
         {
-          name: 'Red',
-          enable: true,
+          name: 'Image',
           root: {
-            background: '#ff0000',
+            enable: true,
+            backgroundImage: 'url("//mcheck.mgbeta.ru/images/bg3.jpg")',
           }
         },
         {
-          name: 'Image',
+          name: 'Gray',
           root: {
-            backgroundImage: 'url("//mcheck.mgbeta.ru/images/bg3.jpg")',
+            background: '#eeeeee',
           }
         }
       ]
@@ -75,7 +62,6 @@ export default {
       items: [
         {
           name: 'No',
-          enable: true,
         },
         {
           name: 'Yes',
@@ -86,6 +72,7 @@ export default {
         {
           name: 'Marks',
           marks: true,
+          enable: true,
         },
       ]
     },

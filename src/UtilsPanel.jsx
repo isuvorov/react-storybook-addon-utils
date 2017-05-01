@@ -1,56 +1,29 @@
 import React, { Component } from 'react';
+import merge from 'deepmerge';
 import Swatch from './Swatch';
 import ButtonGroup from './ButtonGroup';
 import Button from './Button';
-import assign from 'object-assign';
-
-const style = {
-  font: {
-    fontFamily: "-apple-system,'.SFNSText-Regular', 'San Francisco', Roboto, 'Segoe UI', 'Helvetica Neue', 'Lucida Grande', sans-serif",
-    fontSize: '14px',
-  },
-};
-
-const BackgroundDetail = {
-  name: 'default',
-  value: 'transparent',
-};
-
-const __html = `
-import { storiesOf } from "@kadira/storybook";
-import backgrounds from "react-storybook-addon-backgrounds";
-
-storiesOf("First Component", module)
-  .addDecorator(backgrounds([
-    { name: "twitter", value: "#00aced" },
-    { name: "facebook", value: "#3b5998" },
-  ]))
-  .add("First Button", () => &lt;button&gt;Click me&lt;/button&gt;)
-  ;
-`
-// `.trim();
-
-const Instructions = () => (
-  <div style={assign({ padding: '20px' }, style.font)}>
-    <h5 style={{ fontSize: '16px' }}>Setup Instructions</h5>
-    <p>Please add the background decorator definition to your story.
-    The background decorate accepts an array of items, which should include a
-    name for your color (preferably the css class name) and the corresponding color / image value.</p>
-    <p>Below is an example of how to add the background decorator to your story definition.</p>
-    <pre
-      style={{
-        padding: '30px',
-        display: 'block',
-        background: 'rgba(19,19,19,0.9)',
-        color: 'rgba(255,255,255,0.95)',
-        marginTop: '15px',
-        lineHeight: '1.75em',
-      }}
-    ><code dangerouslySetInnerHTML={{ __html }} /></pre>
-  </div>
-);
-
+import Instruction from './Instruction';
 import KEY from './key'
+
+function getConfig(config) {
+  return config;
+}
+
+function getStateFromConfig(config = {}) {
+  const controls = config.controls || [];
+  const state = {
+    controls: {},
+  };
+  controls.forEach((control, key) => {
+    const items = (control.items || []).map((i, key) => ({...i, key}));
+    const item = items.filter(i => i.enable)[0] || items[0];
+    if (!item) return;
+    state.controls[key] = item.key;
+  })
+  // console.log({config, state});
+  return state;
+}
 
 export default class UtilsPanel extends Component {
 
@@ -59,8 +32,11 @@ export default class UtilsPanel extends Component {
   constructor(props) {
     super(props);
 
-    this.props.channel.on(KEY + '-set', (config) => {
-      const state = this.getQueryParam(KEY);
+    this.props.channel.on(KEY + '-set', (rawConfig) => {
+      const config = getConfig(rawConfig);
+      // console.log(this.getQueryParam(KEY), getStateFromConfig(config));
+      const state = merge(getStateFromConfig(config), this.getQueryParam(KEY));
+      // console.log({state});
       this.setGlobalState({ config, ...state });
     });
 
@@ -129,7 +105,7 @@ export default class UtilsPanel extends Component {
   render() {
     const config = this.state.config;
 
-    if (!config) return <Instructions />;
+    if (!config) return <Instruction />;
 
     return (
       <div style={{ display: 'inline-block', padding: '15px' }}>
