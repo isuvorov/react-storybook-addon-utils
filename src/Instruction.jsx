@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import addons from '@kadira/storybook-addons';
+import addons from '@storybook/addons';
 import CropMarks from './CropMarks';
 import config from './config';
 
 const __html = `
-import { storiesOf } from "@kadira/storybook";
+import { storiesOf } from "@storybook/react";
 import utils from "react-storybook-addon-utils";
 
 storiesOf("First Component", module)

@@ -1,5 +1,5 @@
 import React from 'react'; // tslint:disable-line
-import { storiesOf } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
 // import centered from '@kadira/react-storybook-decorator-centered';
 
 import config from './config';

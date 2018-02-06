@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import addons from '@kadira/storybook-addons';
+import addons from '@storybook/addons';
 import CropMarks from './CropMarks';
 
 import config from './config';
@@ -20,7 +20,6 @@ export default class UtilsDecorator extends Component {
     } else {
       this.channel = addons.getChannel();
     }
-
     this.story = this.props.story();
   }
 
